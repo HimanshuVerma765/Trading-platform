@@ -1,3 +1,14 @@
 .nav-link{
     margin-left: 40px !important;
 }
+
+#supportSection{
+    background-color: #387ED1;
+    color: white;
+}
+
+#supportWrapper{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 150px;
+}
