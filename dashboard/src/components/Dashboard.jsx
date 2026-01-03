@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Apps from "./Apps";
@@ -10,13 +10,18 @@ import Positions from "./Positions";
 import Summary from "./Summary";
 import WatchList from "./WatchList";
 import { GeneralContextProvider } from "./GeneralContext";
+import GeneralContext from "./GeneralContext";
+import BuyActionWindow from "./BuyActionWindow";
 
-const Dashboard = () => {
+const DashboardInner = () => {
+  const { isBuyWindowOpen, selectedStockUID } = useContext(GeneralContext);
+
   return (
     <div className="dashboard-container">
-      <GeneralContextProvider>
-        <WatchList />
-      </GeneralContextProvider>
+      <WatchList />
+      <div className={`action-panel ${isBuyWindowOpen ? "open" : "closed"}`}>
+        {isBuyWindowOpen && <BuyActionWindow uid={selectedStockUID} />}
+      </div>
       <div className="content">
         <Routes>
           <Route exact path="/" element={<Summary />} />
@@ -28,6 +33,14 @@ const Dashboard = () => {
         </Routes>
       </div>
     </div>
+  );
+};
+
+const Dashboard = () => {
+  return (
+    <GeneralContextProvider>
+      <DashboardInner />
+    </GeneralContextProvider>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// import BuyActionWindow from "./BuyActionWindow";
+import BuyActionWindow from "./BuyActionWindow";
 
 const GeneralContext = React.createContext({
   openBuyWindow: (uid) => {},
@@ -26,10 +26,12 @@ export const GeneralContextProvider = (props) => {
       value={{
         openBuyWindow: handleOpenBuyWindow,
         closeBuyWindow: handleCloseBuyWindow,
+        isBuyWindowOpen,
+        selectedStockUID,
       }}
     >
       {props.children}
-      {isBuyWindowOpen && <BuyActionWindow uid={selectedStockUID} />}
+      {/* BuyActionWindow will be rendered by the dashboard so it sits between columns */}
     </GeneralContext.Provider>
   );
 };
